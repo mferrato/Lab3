@@ -55,13 +55,48 @@ public class Hand {
 		// Saves the cards that aren't the joker so that the sorted hand doesn't
 		// get overwritten
 		ArrayList<Card> SavedArray = new ArrayList<Card>();
-		SavedArray.add(h.CardsInHand.get(eCardNo.SecondCard.getCardNo()));
-		SavedArray.add(h.CardsInHand.get(eCardNo.ThirdCard.getCardNo()));
-		SavedArray.add(h.CardsInHand.get(eCardNo.FourthCard.getCardNo()));
-		SavedArray.add(h.CardsInHand.get(eCardNo.FifthCard.getCardNo()));
-
 		h.CardsInHand = SeededHand;
-		/** if (h.CardsInHand.get(eCardNo.FirstCard.getCardNo()).getRank() == eRank.JOKER) {
+
+		if (h.CardsInHand.get(eCardNo.SecondCard.getCardNo()).getRank() == eRank.JOKER){
+
+
+			SavedArray.add(h.CardsInHand.get(eCardNo.ThirdCard.getCardNo()));
+			SavedArray.add(h.CardsInHand.get(eCardNo.FourthCard.getCardNo()));
+			SavedArray.add(h.CardsInHand.get(eCardNo.FifthCard.getCardNo()));
+
+			for (short i = 0; i <= 3; i++) {
+				eSuit SuitValue = eSuit.values()[i];
+				for (short j = 0; j <= 12; j++) {
+					eRank RankValue = eRank.values()[j];
+					Card NewCard1 = new Card(SuitValue, RankValue);
+					h.CardsInHand.set(eCardNo.FirstCard.getCardNo(), NewCard1);
+
+					for (short q = 0; q <= 3; q++) {
+						eSuit SuitValue2 = eSuit.values()[q];
+						for (short r = 0; r <= 12; r++) {
+							eRank RankValue2 = eRank.values()[r];
+							Card NewCard2 = new Card(SuitValue2, RankValue2);
+							h.CardsInHand.set(eCardNo.SecondCard.getCardNo(), NewCard2);
+
+							Hand EvaluatedHand = EvalHand(h.CardsInHand);
+							int highestHandSoFar = 0;
+							if (highestHandSoFar <= EvaluatedHand.getHandStrength()) {
+								highestHandSoFar = EvaluatedHand.getHandStrength();
+							}
+
+							SavedArray.add(0, NewCard2);
+							SavedArray.add(0, NewCard1);
+						}}   
+				}}}
+
+		if (h.CardsInHand.get(eCardNo.FirstCard.getCardNo()).getRank() == eRank.JOKER) {
+
+
+			SavedArray.add(h.CardsInHand.get(eCardNo.SecondCard.getCardNo()));
+			SavedArray.add(h.CardsInHand.get(eCardNo.ThirdCard.getCardNo()));
+			SavedArray.add(h.CardsInHand.get(eCardNo.FourthCard.getCardNo()));
+			SavedArray.add(h.CardsInHand.get(eCardNo.FifthCard.getCardNo()));
+
 			for (short i = 0; i <= 3; i++) {
 				eSuit SuitValue = eSuit.values()[i];
 				for (short j = 0; j <= 12; j++) {
@@ -74,13 +109,25 @@ public class Hand {
 					if (highestHandSoFar <= EvaluatedHand.getHandStrength()) {
 						highestHandSoFar = EvaluatedHand.getHandStrength();
 					}
-				   h.CardsInHand = new ; 
+
+					SavedArray.add(0, NewCard);
+					/**for(int f = 0; f <= 4; f++){
+						   if((NewCard.getRank() == EvaluatedHand.CardsInHand.get(f).getRank()) && 
+						   (NewCard.getSuit() == EvaluatedHand.CardsInHand.get(f).getSuit())){
+							   SavedArray.add(f, NewCard);
+							   h.CardsInHand = new ArrayList<Card>(SavedArray);}
+
+					   }**/
+
+
+
+
 				}
 			}
-		} else {} */
-			
-		h.EvalHand();
-		
+		}
+
+		else h.EvalHand();
+
 
 		return h;
 	}
