@@ -387,6 +387,30 @@ public class Hand {
 
 	}
 
+
+	public static Hand PickBestHand(ArrayList<Hand> Hands) throws exHand{
+		Hand Besthand = Hands.get(0);
+		
+		//Compares each hand to each other hand in an array
+		for(int i = 1; i < Hands.size(); i++){
+
+			
+			if(HandRank.compare(Besthand, Hands.get(i)) > 0){
+				Besthand = Hands.get(i);
+			}
+			
+			if(HandRank.compare(Besthand, Hands.get(i)) == 0){
+				throw new exHand();
+			}
+
+		}
+
+		return Besthand;
+	}
+
+	
+	
+	
 	/**
 	 * Custom sort to figure the best hand in an array of hands
 	 */
